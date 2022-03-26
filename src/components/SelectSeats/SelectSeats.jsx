@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import axios from "axios";
 import './SelectSeats.css'
+import styled from "styled-components";
 
 export default function SelectSeats(){
     const {idSessao} = useParams()
@@ -10,6 +11,7 @@ export default function SelectSeats(){
     const [hour, setHour] = useState('')
     const [day, setDay] = useState({})
     const [seats, setSeats] = useState([])
+    const [seatColor, setSeatColor] = useState({color:'#C3CFD9', border:'#7B8B99'})
 
     useEffect(()=>{
         const promesse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
@@ -26,11 +28,56 @@ export default function SelectSeats(){
         <main className="selectSeats">
             <h2>Selecione o(s) assento(s)</h2>
             <div className="seats">
-                {seats.map(seat => <div className="seat">
-                    {seat.name}
-                </div>)}
+                {seats.map(seat =>
+                    <Seat   color={seat.isAvailable ? seatColor.color : '#FBE192'}
+                            border={seat.isAvailable ?  seatColor.border : '#F7C52B'}
+                    >
+                        {seat.name}
+                    </Seat>
+                )}
+                <div className="subtitle">  
+                    <section>
+                        <Seat color='#8DD7CF' border='#1AAE9E'/>
+                        <label>Selecionado</label>
+                    </section>
+                    <section>
+                        <Seat color='#C3CFD9' border='#7B8B99'/>
+                        <label>Disponivel</label>
+                    </section>
+                    <section>
+                        <Seat color='#FBE192' border='#F7C52B'/>
+                        <label>Indisponivel</label>
+                    </section>  
+                </div>
             </div>
+            
             <Footer image={movie.posterURL  } title={movie.title} date={`${day.weekday} - ${hour}`}/> 
         </main>
     )
 }
+
+const Seat = styled.div`
+    display: flex;
+    justify-content: center;
+    margin: 7px;
+    width: 26px;
+    height: 26px;
+    left: 124px;
+    top: 158px;
+
+    background: ${props => props.color};
+    border: 1px solid ${props => props.border};
+    box-sizing: border-box;
+    border-radius: 12px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+`
