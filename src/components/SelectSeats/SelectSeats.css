@@ -1,0 +1,40 @@
+.selectSeats{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.selectSeats h2{
+    padding-bottom: 10px;
+}
+.seats{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 90%;
+}
+
+.seat{
+    display: flex;
+    justify-content: center;
+    margin: 7px;
+    width: 26px;
+    height: 26px;
+    left: 124px;
+    top: 158px;
+
+    background: #C3CFD9;
+    border: 1px solid #808F9D;
+    box-sizing: border-box;
+    border-radius: 12px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 13px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+    color: #000000;
+}

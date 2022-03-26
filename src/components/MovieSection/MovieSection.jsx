@@ -1,7 +1,7 @@
 import axios from "axios"
 import './MovieSection.css'
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Footer from "../Footer/Footer"
 
 export default function MovieSection(){
@@ -18,6 +18,7 @@ export default function MovieSection(){
         promesse.catch("Ocorreu algum erro.")
     }, [])
 
+
     return(
         <>
             <h2>Selecione o horário</h2>
@@ -26,11 +27,15 @@ export default function MovieSection(){
                 <div className="date">
                     <h3>{day.weekday} - {day.date}</h3>
                     <div className="hours">
-                        {day.showtimes.map(time => <h4>{time.name}</h4>)}
+                        {day.showtimes.map(time => 
+                            <Link to={`/sessao/${time.id}`}>
+                                <h4>{time.name}</h4>
+                            </Link>)}
                     </div>
                 </div>)}
             </main>
-            <Footer image={movie.posterURL} title={movie.title}/>
+            <Footer image={movie.posterURL} 
+                    title={movie.title}/>
         </>
     )
 }

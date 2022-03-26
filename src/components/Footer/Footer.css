@@ -15,8 +15,10 @@ footer img{
 }
 footer .informations{
     display: flex;
+    flex-direction: column;
+    padding-top: 15px;
 }
-.informations h2{
+.informations h3{
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
