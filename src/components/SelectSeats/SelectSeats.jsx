@@ -4,6 +4,7 @@ import Footer from "../Footer/Footer";
 import axios from "axios";
 import './SelectSeats.css'
 import styled from "styled-components";
+import Chair from "../Chair/Chair";
 
 export default function SelectSeats(){
     const {idSessao} = useParams()
@@ -11,7 +12,6 @@ export default function SelectSeats(){
     const [hour, setHour] = useState('')
     const [day, setDay] = useState({})
     const [seats, setSeats] = useState([])
-    const [seatColor, setSeatColor] = useState({color:'#C3CFD9', border:'#7B8B99'})
 
     useEffect(()=>{
         const promesse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
@@ -28,13 +28,7 @@ export default function SelectSeats(){
         <main className="selectSeats">
             <h2>Selecione o(s) assento(s)</h2>
             <div className="seats">
-                {seats.map(seat =>
-                    <Seat   color={seat.isAvailable ? seatColor.color : '#FBE192'}
-                            border={seat.isAvailable ?  seatColor.border : '#F7C52B'}
-                    >
-                        {seat.name}
-                    </Seat>
-                )}
+                {seats.map(seat => <Chair name={seat.name} available={seat.isAvailable}/>)}
                 <div className="subtitle">  
                     <section>
                         <Seat color='#8DD7CF' border='#1AAE9E'/>
@@ -50,7 +44,7 @@ export default function SelectSeats(){
                     </section>  
                 </div>
             </div>
-            
+
             <Footer image={movie.posterURL  } title={movie.title} date={`${day.weekday} - ${hour}`}/> 
         </main>
     )
