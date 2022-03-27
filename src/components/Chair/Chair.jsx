@@ -5,8 +5,9 @@ export default function Chair(props){
     const [initialColor, setInitialColor] = useState({color:'#C3CFD9', border:'#7B8B99'})
     const notAvailableColor = {color:'#FBE192', border:'#F7C52B'}
 
-    function selectSeat(){
+    function selectSeat(seat){
         setInitialColor({color:'#8DD7CF', border:'#1AAE9E'})
+        props.addSeat(seat)
     }
 
     return(
@@ -14,7 +15,7 @@ export default function Chair(props){
             <Seat    
                 color={initialColor.color}
                 border={initialColor.border}
-                onClick={()=>{selectSeat()}}
+                onClick={()=>{selectSeat(props.id)}}
             >
                 {props.name}
             </Seat>

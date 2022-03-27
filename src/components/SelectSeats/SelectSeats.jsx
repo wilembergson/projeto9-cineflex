@@ -12,6 +12,25 @@ export default function SelectSeats(){
     const [hour, setHour] = useState('')
     const [day, setDay] = useState({})
     const [seats, setSeats] = useState([])
+    const [buyerName, setBuyerName] = useState('')
+    const [buyerCPF, setBuyerCPF] = useState('')
+    const [chosenSeats, setChosenSeats] = useState([])
+
+    function addChosenSeat(seat){
+        setChosenSeats([...chosenSeats, seat])
+    }
+
+    function doShopping(event){
+        event.preventDefault()
+
+        axios.post(`https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many`, {
+            ids: chosenSeats,
+            name: buyerName,
+            cpf: buyerCPF
+        })
+        .then(response => console.log(response))
+        .catch(response => console.log(response.error))
+    }
 
     useEffect(()=>{
         const promesse = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${idSessao}/seats`)
@@ -28,7 +47,13 @@ export default function SelectSeats(){
         <main className="selectSeats">
             <h2>Selecione o(s) assento(s)</h2>
             <div className="seats">
-                {seats.map(seat => <Chair name={seat.name} available={seat.isAvailable}/>)}
+                {seats.map(seat => 
+                    <Chair  name={seat.name}
+                            id={seat.id}
+                            available={seat.isAvailable}
+                            addSeat={addChosenSeat}
+                    />)
+                }
                 <div className="subtitle">  
                     <section>
                         <Seat color='#8DD7CF' border='#1AAE9E'/>
@@ -44,19 +69,28 @@ export default function SelectSeats(){
                     </section>  
                 </div>
             </div>
-            <form>
+            <form onSubmit={doShopping}>
                 <section>
-                    <label>Nome do comprador</label>
-                    <input type="text" placeholder="Digite seu nome..."/>
+                    <label>Nome do comprador:</label>
+                    <input  type="text"
+                            placeholder="Digite seu nome..."
+                            value={buyerName}
+                            onChange={(event)=> setBuyerName(event.target.value)}/>
                 </section>
                 <section>
-                    <label>CPF do comprador</label>
-                    <input type="number"  placeholder="Digite seu CPF..."/>
+                    <label>CPF do comprador:</label>
+                    <input  type="number"
+                            placeholder="Digite seu CPF..."
+                            value={buyerCPF}
+                            onChange={event => setBuyerCPF(event.target.value)}/>
                 </section>
-                <div>Reservar assento(s)</div>
+                <button type="submit">Reservar asento(s)</button>
             </form>
-
-            <Footer image={movie.posterURL  } title={movie.title} date={`${day.weekday} - ${hour}`}/> 
+    
+            <Footer image={movie.posterURL}
+                    title={movie.title}
+                    date={`${day.weekday} - ${hour}`}
+            />
         </main>
     )
 }
