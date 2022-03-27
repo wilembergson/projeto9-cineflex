@@ -44,6 +44,17 @@ export default function SelectSeats(){
                     </section>  
                 </div>
             </div>
+            <form>
+                <section>
+                    <label>Nome do comprador</label>
+                    <input type="text" placeholder="Digite seu nome..."/>
+                </section>
+                <section>
+                    <label>CPF do comprador</label>
+                    <input type="number"  placeholder="Digite seu CPF..."/>
+                </section>
+                <div>Reservar assento(s)</div>
+            </form>
 
             <Footer image={movie.posterURL  } title={movie.title} date={`${day.weekday} - ${hour}`}/> 
         </main>
