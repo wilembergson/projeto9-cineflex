@@ -17,11 +17,11 @@ export default function SelectSeats(){
     const [buyerName, setBuyerName] = useState('')
     const [buyerCPF, setBuyerCPF] = useState('')
     const [chosenSeats, setChosenSeats] = useState([])
+    const [chosenSeatsName, setChosenSeatsName] = useState([])
 
-    const [buyData, setBuyData] = useState({movie: movie.title, hour: hour})
-
-    function addChosenSeat(seat){
+    function addChosenSeat(seat, name){
         setChosenSeats([...chosenSeats, seat])
+        setChosenSeatsName([...chosenSeatsName, name])
     }
 
     function doShopping(event){
@@ -34,7 +34,14 @@ export default function SelectSeats(){
         })
         .then(response => {
             const movieAndSection = {movie: movie, hour: hour, day: day}
-            navigate(`/sucesso`, {state: {movieAndSection}})
+            const buyer = {name: buyerName, cpf: buyerCPF}
+            const seats = chosenSeatsName
+            
+            navigate(`/sucesso`, {state: {
+                movieAndSection,
+                buyer,
+                seats
+            }})
         })
         .catch(response => console.log(response.error))
     }
