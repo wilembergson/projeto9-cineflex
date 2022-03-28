@@ -88,3 +88,10 @@ main button{
     letter-spacing: 0.04em;
     color: #FFFFFF;
 }
+ion-icon{
+    font-size: 40px;
+    position: fixed;
+    left: 10px;
+    top: 13px;
+    color: #4E5A65;
+}

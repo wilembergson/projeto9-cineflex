@@ -57,8 +57,19 @@ export default function SelectSeats(){
         promesse.catch("Ocorreu algum erro.")
     }, [])
 
+    function handleClick() {
+        navigate(-1);
+      }
+
     return(
         <main className="selectSeats">
+            <div>
+            <ion-icon
+              onClick={handleClick}
+              class="return-btn"
+              name="arrow-back-circle-outline"
+            ></ion-icon>
+            </div>
             <h2>Selecione o(s) assento(s)</h2>
             <div className="seats">
                 {seats.map(seat => 
@@ -98,7 +109,9 @@ export default function SelectSeats(){
                             placeholder="Digite seu CPF..."
                             value={buyerCPF}
                             onChange={event => setBuyerCPF(event.target.value)}
-                            required/>
+                            required
+                            minLength={11}
+                            maxLength={11}/>
                 </section>
                 <button type="submit">Reservar asento(s)</button>
             </form>

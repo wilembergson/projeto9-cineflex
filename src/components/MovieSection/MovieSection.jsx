@@ -1,10 +1,11 @@
 import axios from "axios"
 import './MovieSection.css'
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import Footer from "../Footer/Footer"
 
 export default function MovieSection(){
+    const navigate = useNavigate()
     const {idFilme} = useParams()
     const [movie, setMovie] = useState({})
     const [days, setDays] = useState([])
@@ -18,9 +19,17 @@ export default function MovieSection(){
         promesse.catch("Ocorreu algum erro.")
     }, [])
 
+    function handleClick() {
+        navigate(-1);
+    }
 
     return(
         <>
+            <ion-icon
+              onClick={handleClick}
+              class="return-btn"
+              name="arrow-back-circle-outline"
+            ></ion-icon>
             <h2>Selecione o horário</h2>
             <main>
             {days.map(day=> 
