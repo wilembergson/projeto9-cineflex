@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import axios from "axios";
@@ -7,6 +7,8 @@ import styled from "styled-components";
 import Chair from "../Chair/Chair";
 
 export default function SelectSeats(){
+    let navigate = useNavigate()
+    
     const {idSessao} = useParams()
     const [movie, setMovie] = useState({})
     const [hour, setHour] = useState('')
@@ -15,6 +17,8 @@ export default function SelectSeats(){
     const [buyerName, setBuyerName] = useState('')
     const [buyerCPF, setBuyerCPF] = useState('')
     const [chosenSeats, setChosenSeats] = useState([])
+
+    const [buyData, setBuyData] = useState({movie: movie.title, hour: hour})
 
     function addChosenSeat(seat){
         setChosenSeats([...chosenSeats, seat])
@@ -28,7 +32,10 @@ export default function SelectSeats(){
             name: buyerName,
             cpf: buyerCPF
         })
-        .then(response => console.log(response))
+        .then(response => {
+            const movieAndSection = {movie: movie, hour: hour, day: day}
+            navigate(`/sucesso`, {state: {movieAndSection}})
+        })
         .catch(response => console.log(response.error))
     }
 
@@ -75,14 +82,16 @@ export default function SelectSeats(){
                     <input  type="text"
                             placeholder="Digite seu nome..."
                             value={buyerName}
-                            onChange={(event)=> setBuyerName(event.target.value)}/>
+                            onChange={(event)=> setBuyerName(event.target.value)}
+                            required/>
                 </section>
                 <section>
                     <label>CPF do comprador:</label>
                     <input  type="number"
                             placeholder="Digite seu CPF..."
                             value={buyerCPF}
-                            onChange={event => setBuyerCPF(event.target.value)}/>
+                            onChange={event => setBuyerCPF(event.target.value)}
+                            required/>
                 </section>
                 <button type="submit">Reservar asento(s)</button>
             </form>

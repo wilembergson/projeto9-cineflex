@@ -1,0 +1,48 @@
+.finalScreen h2{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    color: #247A6B;
+    padding: 50px 120px;
+}
+
+.finalScreen section{
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    margin-left: 29px;
+}
+.finalScreen section h3{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.04em;
+    
+    color: #293845;
+}
+.finalScreen section h4{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 26px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.04em;
+
+    color: #293845;
+    background: none;
+    margin: 2px;
+    padding: 0;
+}
